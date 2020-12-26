@@ -498,7 +498,12 @@ public class CameraActivity extends Fragment {
         Log.d(TAG, "CameraPreview onPictureTaken general exception");
       } finally {
         canTakePicture = true;
-        mCamera.startPreview();
+        try{
+          mCamera.startPreview();
+        }catch(NullPointerException e){
+          Log.d(TAG, "CameraPreview NullPointerException");
+          eventListener.onPictureTakenError("CameraPreview NullPointerException");
+        }
       }
     }
   };
